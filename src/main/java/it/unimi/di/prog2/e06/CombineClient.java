@@ -48,6 +48,41 @@ public class CombineClient {
     return result;
   }
 
+
+  /**
+   * multiply each element of array A, with the sum of all element of B
+   * @param args not used
+   */
+  public static void main(String[] args) {
+    // REQUIRES: System.in contains 2 lines of numbers separated by space
+    // MODIFES: System.in and System.out
+    // EFFECTS: 
+    Scanner sc = new Scanner(System.in);
+    int[] a = parseInts(sc.nextLine());
+    int[] b = parseInts(sc.nextLine());
+    sc.close();
+    System.out.printf("%v", combine(a,b));
+  }
+
+  /** Combine 2 arrays
+   * 
+   * @param a array A
+   * @param b array B
+   * @return Array A multiplied each element with the sum of all B elements
+   */
+  public static int[] combine(int[] a,int[] b){
+    // REQUIRES 
+    if (a.length == 0 || b.length == 0){
+      return new int[a.length];
+    }
+    int bsum = SumClient.sum(b);
+    for (int i = 0; i < a.length; i++) {
+      a[i] *= bsum;
+    }
+    return a;
+  }
+
+
   // Il main di questa classe legge due righe dal flusso di ingresso ciascuna
   // delle quali contiene gli interi (separati da spazi) di uno dei due array da
   // combinare e ne emette il risultato della combinazione (separando gli interi
