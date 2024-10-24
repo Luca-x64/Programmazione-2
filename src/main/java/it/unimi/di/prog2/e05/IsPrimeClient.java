@@ -19,18 +19,43 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e05;
-
-/** Esercizio 3.3 di PDJ. */
 public class IsPrimeClient {
 
-  /** . */
-  private IsPrimeClient() {}
+  /**
+   * Given a number, print "true" if its a prime number
+   *
+   * @param args number
+   */
+  public static void main(String[] args) {
+    // REQUIRES: a number in args
+    // MODIFIES: System.out
+    // EFFECTS: Write in System.out true if the number given in args its a prime number,
 
+    System.out.println(isPrime(Integer.valueOf(args[0])) ? "true" : "");
+  }
+
+  /** Constructor IsPrimeClient */
+  public IsPrimeClient() {}
+
+  /**
+   * return true if the number in input is a prime number
+   *
+   * @param n number
+   * @return true only if n is a prime number
+   */
+  public static boolean isPrime(int n) {
+    // EFFECTS: return true if n is a prime number
+    if (n % 2 == 0 && n > 2) {
+      return false;
+    }
+    for (int i = n / 2; i > 2 && n % 2 != 0; i -= 2) {
+      if (n % i == 0) return false;
+    }
+    return true;
+  }
+}
   // Aggiunga qui un main che invochi il metodo isPrime (che può sviluppare in
   // questa o altra classe) descritto dall'esercizio 3.3 di PDJ.
 
   // Il main riceve un intero come parametro sulla linea di comando ed emette
   // "true" nel flusso d'uscita se e solo se esso è primo.
-
-}

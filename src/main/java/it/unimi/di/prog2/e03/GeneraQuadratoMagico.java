@@ -19,22 +19,48 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e03;
-
-/**
- * Vedi <a
- * href="https://github.com/mapio/labprog/blob/master/esercizi/genera_quadrato_magico/Testo.md">testo</a>,
- */
 public class GeneraQuadratoMagico {
-
-  /** . */
-  private GeneraQuadratoMagico() {}
-
-  /*- Completa il seguente main
 
   public static void main(String[] args) {
     final int N = Integer.parseInt(args[0]);
+    int startIndex = N / 2;
+    int matrix[][] = new int[N][N];
+    int outMatrix[][] = insert(startIndex, matrix, N);
+    printMatrix(outMatrix);
   }
 
-  */
+  private static void printMatrix(int[][] outMatrix) {
+    for (int[] line : outMatrix) {
+      for (int element : line) {
+        System.out.printf("%d ", element);
+      }
+      System.out.println();
+    }
+  }
+
+  private static int[][] insert(int startIndex, int[][] matrix, int N) {
+    matrix[0][startIndex] = 1;
+    int line = 0, col = startIndex;
+    for (int i = 1; i < N * N; i++) {
+
+      int upRightLine = (line - 1) % N;
+      if (upRightLine == -1) {
+        upRightLine = N - 1;
+      }
+
+      int downLeftCol = (col + 1) % N;
+
+      int upRight = matrix[upRightLine][downLeftCol];
+
+      if (upRight == 0) {
+        line = upRightLine;
+        col = downLeftCol;
+        matrix[line][col] = i + 1; // up-right position = i + 1
+      } else {
+        line = (line + 1) % N;
+        matrix[line][col] = i + 1; // down-left position = i +1
+      }
+    }
+    return matrix;
+  }
 }

@@ -19,16 +19,44 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e05;
-
-/** Esercizio 3.2 di PDJ. */
 public class SumClient {
 
-  /** . */
-  private SumClient() {}
+  /** Default constructor */
+  public SumClient() {}
+
+  /**
+   * Print the sum of all number passed in program argument
+   *
+   * @param args number to sum
+   */
+  public static void main(String[] args) {
+    // REQUIRES: args contains some numbers
+    // MODIFES: System.out
+    // EFFECTS: Write in System.out the sum of all numbers passed as argument
+    int[] arr = new int[args.length];
+    for (int i = 0; i < args.length; i++) {
+      arr[i] = Integer.parseInt(args[i]);
+    }
+    System.out.println(sum(arr));
+  }
+
+  /**
+   * calculate the sum of all elements of the given array
+   *
+   * @param numbers array of numbers
+   * @return int sum
+   */
+  public static int sum(int[] numbers) {
+    // EFFECTS: return the sum of all of the numbers in the array
+    int total = 0;
+    for (int element : numbers) {
+      total += element;
+    }
+    return total;
+  }
 
   // Aggiunga qui un main che invochi il metodo sum (che può sviluppare in
-  // questa o altra classe) descritto dall'esercizio 3.2 di PDJ.
+  // questa o altra classe) descritto dall'esercizio
 
   // Il main riceve un elenco di interi come parametri sulla linea di comando e
   // ne emette la somma nel flusso d'ingresso.

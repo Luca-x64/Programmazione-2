@@ -19,26 +19,62 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e03;
+import java.util.Scanner;
 
 /**
- * Vedi <a
- * href="https://github.com/mapio/labprog/blob/master/esercizi/bounding_box/Testo.md">testo</a>,
+ * Vedi <a href=
+ * "https://github.com/mapio/labprog/blob/master/esercizi/bounding_box/Testo.md">testo</a>,
  */
 public class BoundingBox {
 
-  /** . */
-  private BoundingBox() {}
-
-  /*- Completa il seguente main
-
   public static void main(String[] args) {
+    int Nrows = 0, Nlines = 0, linescount = 0, startOffset = 0, endOffset = 0;
+    int tempStartOffset = 0, tempEndOffset = 0;
+    boolean external = false;
+    String formattedLine, linea = "";
+
     try (Scanner s = new Scanner(System.in)) {
       while (s.hasNext()) {
-        final String linea = s.nextLine();
+
+        linea = s.nextLine();
+
+        if (Nlines == 0) {
+          Nrows = linea.length();
+          startOffset = linea.length();
+          endOffset = linea.length();
+        }
+
+        if (linea.charAt(0) == '*' || linea.charAt(linea.length() - 1) == '*') {
+          external = true;
+
+        } else {
+
+          formattedLine = linea.replace(".", " ");
+          if (formattedLine.strip().length() > 0) {
+            tempStartOffset = 0;
+            tempEndOffset = 0;
+
+            tempStartOffset =
+                linea.length() - formattedLine.stripLeading().length(); // cound `.` leading .
+            tempEndOffset =
+                linea.length() - formattedLine.stripTrailing().length(); // count `.` trailing
+
+            startOffset =
+                tempStartOffset < startOffset ? tempStartOffset : startOffset; // min start offset
+            endOffset = tempEndOffset < endOffset ? tempEndOffset : endOffset; // min end offset
+
+            Nlines += 1;
+          }
+        }
+
+        linescount += 1;
       }
     }
-  }
 
-  */
+    if (external) {
+      System.out.printf("%d %d\n", linescount, Nrows);
+    } else {
+      System.out.printf("%d %d\n", Nlines, Nrows - startOffset - endOffset);
+    }
+  }
 }

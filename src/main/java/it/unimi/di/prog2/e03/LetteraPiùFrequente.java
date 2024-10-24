@@ -19,7 +19,7 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e03;
+import java.util.Scanner;
 
 /**
  * Vedi <a
@@ -27,18 +27,27 @@ package it.unimi.di.prog2.e03;
  */
 public class LetteraPiùFrequente {
 
-  /** . */
-  private LetteraPiùFrequente() {}
-
-  /*- Completa il seguente main
-
   public static void main(String[] args) {
+    String parolaconcat = "";
     try (Scanner s = new Scanner(System.in)) {
       while (s.hasNext()) {
-        final String parola = s.nextLine();
+        parolaconcat += s.nextLine();
+        ;
       }
     }
+    System.out.println(countMaxChar(parolaconcat.toLowerCase().replace(" ", "")));
   }
 
-  */
+  private static int countMaxChar(String parola) {
+    int max_cnt = 0;
+    int i = 0;
+    while (parola.length() > 0) {
+      String newParola = parola.replace(Character.toString(parola.charAt(i)), "");
+      int tempOccorencies = parola.length() - newParola.length();
+      max_cnt = tempOccorencies > max_cnt ? tempOccorencies : max_cnt; // find max
+      parola = newParola;
+    }
+
+    return max_cnt;
+  }
 }

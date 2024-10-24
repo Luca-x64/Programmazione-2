@@ -19,29 +19,59 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e04;
+import java.util.Scanner;
 
 /**
- * Vedi <a
- * href="https://github.com/mapio/labprog/blob/master/esercizi/somma_strana/Testo.md">testo</a>, ma
+ * Vedi <a href=
+ * "https://github.com/mapio/labprog/blob/master/esercizi/somma_strana/Testo.md">testo</a>, ma
  * leggendo gli addendi dal flusso di ingresso.
  */
 public class SommaStrana {
+  /** sum */
+  private String sum = "";
 
-  /** . */
-  private SommaStrana() {}
+  /**
+   * main
+   *
+   * @param args args
+   */
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println(new SommaStrana(sc.nextLine(), sc.nextLine()));
+    sc.close();
+  }
 
-  // Per memorizzare un elenco di interi si può usare list<Integer>, grazie
-  // all'boxing automatico https://dev.java/learn/numbers-strings/autoboxing/
-  // se la lista è stata dichiarata come
-  //
-  // List<Integer> interi = new ArrayList<>();
-  //
-  // sono legittime espressioni del tipo
-  //
-  // interi.add(3);
-  // int y = interi.get(0);
-  //
-  // dove vengono messi e prelevati dalla lista degli int, non degli Integer.
+  /**
+   * sommastrana
+   *
+   * @param n1 number start
+   * @param n2 number end
+   */
+  private SommaStrana(String n1, String n2) {
+    int i1 = n1.length() - 1;
+    int i2 = n2.length() - 1;
+    int riporto = 0;
+    while (i1 > -1 || i2 > -1 || riporto != 0) {
 
+      int p1 = i1 > -1 ? Integer.parseInt(Character.toString(n1.charAt(i1))) : 0;
+      int p2 = i2 > -1 ? Integer.parseInt(Character.toString(n2.charAt(i2))) : 0;
+
+      int tempSum = p1 + p2 + riporto;
+      if (tempSum > 9) {
+        tempSum = 19 - (tempSum);
+        riporto = 1;
+      } else {
+        riporto = 0;
+      }
+
+      this.sum = Integer.toString(tempSum) + sum;
+      i1--;
+      i2--;
+    }
+  }
+
+  @Override
+  public String toString() {
+    return this.sum;
+  }
 }

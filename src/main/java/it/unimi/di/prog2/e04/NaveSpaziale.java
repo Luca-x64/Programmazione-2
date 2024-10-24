@@ -19,24 +19,54 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e04;
-
-/**
- * Vedi <a
- * href="https://github.com/mapio/labprog/blob/master/esercizi/nave_spaziale/Testo.md">testo</a>.
- */
 public class NaveSpaziale {
 
-  /** . */
-  private NaveSpaziale() {}
+  /** sequence */
+  private String sequence = "";
 
-  // Se String[] args è il vettore che contiene gli argomenti sulla linea
-  // di comando, potete convertire i primi due in numeri interi con le
-  // dichiarazioni (e inizializzazioni) seguenti
-  //
-  // int from = Integer.parseInt(args[0]);
-  // int to = Integer.parseInt(args[1]);
-  //
-  // non c'è bisogno di importare alcun package per poter usare Integer.
+  /**
+   * Main
+   *
+   * @param args args
+   */
+  public static void main(String[] args) {
+    int n1 = Integer.valueOf(args[0]);
+    int n2 = Integer.valueOf(args[1]);
+    System.out.println(new NaveSpaziale(n1, n2));
+  }
 
+  /**
+   * navespaziale
+   *
+   * @param n1 number 1
+   * @param n2 number 2
+   */
+  private NaveSpaziale(int n1, int n2) {
+    // if (n2 %2 != 0 || n2 < 4*n1)
+    boolean dispari = n2 % 2 == 1;
+    if (dispari) {
+      n2--;
+    }
+    while (n1 != n2) {
+      if (4 * (n1 + 1) <= n2 && 16 * n1 > n2) {
+        n1++;
+        sequence += "P";
+      } else if (4 * n1 <= n2) { // n2 > 4*n1  //|  4*n1 > n2
+        sequence += "S";
+        n1 *= 4;
+      } else {
+        n1++;
+        sequence += "P";
+      }
+    }
+    if (dispari) {
+
+      sequence = sequence + "P";
+    }
+  }
+
+  @Override
+  public String toString() {
+    return this.sequence;
+  }
 }

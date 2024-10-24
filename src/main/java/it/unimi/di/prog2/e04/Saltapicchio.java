@@ -19,7 +19,8 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e04;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Vedi <a
@@ -28,6 +29,51 @@ package it.unimi.di.prog2.e04;
  */
 public class Saltapicchio {
 
-  /** . */
-  private Saltapicchio() {}
+  /** Saltapicchio boolean */
+  private boolean saltapicchio = true;
+
+  /**
+   * main
+   *
+   * @param args args
+   */
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    String[] split = sc.nextLine().split(" ");
+    sc.close();
+    int n = Integer.parseInt(args[0]);
+    System.out.println(new Saltapicchio(n, split));
+  }
+
+  /**
+   * saltapicchio
+   *
+   * @param n number
+   * @param split split number sequence
+   */
+  private Saltapicchio(int n, String[] split) {
+    ArrayList<Integer> lista = new ArrayList<Integer>();
+    for (int i = 0; i < split.length - 1; i++) {
+      int diff = Math.abs(Integer.parseInt(split[i]) - Integer.parseInt(split[i + 1]));
+      if (!lista.contains(diff)) {
+        lista.add(diff);
+      }
+      if (diff > n - 1 || diff == 0) {
+        this.saltapicchio = false;
+        break;
+      }
+    }
+    if (this.saltapicchio && lista.size() != n - 1) {
+      this.saltapicchio = false;
+    }
+  }
+
+  @Override
+  public String toString() {
+    if (this.saltapicchio) {
+      return "saltapicchio";
+    } else {
+      return "";
+    }
+  }
 }

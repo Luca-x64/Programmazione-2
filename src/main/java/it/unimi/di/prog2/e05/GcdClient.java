@@ -19,18 +19,54 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e05;
+import java.util.Scanner;
 
-/** Esercizio 3.1 di PDJ. */
+/**
+ * Esercizio 3.1 di PDJ.
+ *
+ * @author Ghirimoldi Luca
+ */
 public class GcdClient {
+
+  /**
+   * Take 2 number in input, and print gcd
+   *
+   * @param args args not used
+   */
+  public static void main(String[] args) {
+    // REQUIRES: System.in contains some line, each containing 2 numbers separated by a space
+    // MODIFIES: System.in and System.out
+    // EFFECTS:  Read some line of text from System.in, each line contains 2 numbers
+    // write in System.out the gcd for each line
+    Scanner sc = new Scanner(System.in);
+    while (sc.hasNext()) {
+      int n1 = sc.nextInt();
+      int n2 = sc.nextInt();
+      System.out.println(gcd(n1, n2));
+    }
+    sc.close();
+  }
+
+  /**
+   * calculate gcd of 2 numbers
+   *
+   * <p>calculate gcd of the 2 numbers
+   *
+   * @param n1 first number
+   * @param n2 second number
+   * @return gcd of the 2 numbers
+   */
+  private static int gcd(int n1, int n2) {
+    // MODIFIES: n1 , n2
+    // EFFECTS: return gcd of 2 numbers
+    while (n2 != 0) {
+      int temp = n2;
+      n2 = n1 % n2;
+      n1 = temp;
+    }
+    return n1;
+  }
 
   /** . */
   private GcdClient() {}
-
-  // Aggiunga qui un main che invochi il metodo gcd (che può sviluppare in
-  // questa o altra classe) descritto dall'esercizio 3.1 di PDJ.
-
-  // Il main legge dal flusso di ingresso coppie di numeri ed emette nel flusso
-  // d'uscita il loro gcd.
-
 }
