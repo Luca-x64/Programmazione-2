@@ -45,7 +45,10 @@ public class SumClient {
       nums.add(sc.nextInt());
     }
     sc.close();
-    int[] arr = nums.toArray();
+    int[] arr = new int[nums.size()];
+    for (int i = 0; i < arr.length; i++) {
+        arr[i] = nums.get(i);
+    }
     System.out.printf("Sum: %d",sum(arr));
     System.out.printf("Sum: %d",sumE(arr));
       

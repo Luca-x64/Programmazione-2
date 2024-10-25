@@ -41,8 +41,10 @@ public class CombineClient {
   private static int[] parseInts(String string) {
     List<Integer> list = new ArrayList<>();
     try (Scanner sl = new Scanner(string)) {
-      while (sl.hasNextInt()) list.add(sl.nextInt());
+      while (sl.hasNextInt()) 
+        list.add(sl.nextInt());
     }
+
     int[] result = new int[list.size()];
     for (int i = 0; i < list.size(); i++) result[i] = list.get(i);
     return result;
@@ -61,7 +63,10 @@ public class CombineClient {
     int[] a = parseInts(sc.nextLine());
     int[] b = parseInts(sc.nextLine());
     sc.close();
-    System.out.printf("%v", combine(a,b));
+    int[] sum = combine(a, b);
+    for (int i : sum) {
+      System.out.print("Combined= "+String.valueOf(i) +" ");
+    }
   }
 
   /** Combine 2 arrays
@@ -70,8 +75,16 @@ public class CombineClient {
    * @param b array B
    * @return Array A multiplied each element with the sum of all B elements
    */
-  public static int[] combine(int[] a,int[] b){
-    // REQUIRES 
+  public static int[] combine(int[] a,int[] b)   {
+    // REQUIRES a and b are arrays of integer numbes
+    // if a or b is {@code null} throw NullPointerException
+    // if a or b is empty, the return will be an array of 0
+    if (a == null){
+      throw new NullPointerException("a is null");
+    }
+    if (b == null){
+      throw new NullPointerException("b is null");
+    }
     if (a.length == 0 || b.length == 0){
       return new int[a.length];
     }
