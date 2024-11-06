@@ -1,3 +1,5 @@
+package it.unimi.di.prog2.e05;
+
 /*
 
 Copyright 2024 Massimo Santini
@@ -22,7 +24,7 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 public class IsPrimeClient {
 
   /**
-   * Given a number, print "true" if its a prime number
+   * Given a number, print {@code true} if its a prime number
    *
    * @param args number
    */
