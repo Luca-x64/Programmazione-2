@@ -1,3 +1,5 @@
+package it.unimi.di.prog2.e03;
+
 /*
 
 Copyright 2024 Massimo Santini

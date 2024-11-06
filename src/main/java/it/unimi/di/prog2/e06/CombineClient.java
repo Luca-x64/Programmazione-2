@@ -65,7 +65,7 @@ public class CombineClient {
     sc.close();
     int[] sum = combine(a, b);
     for (int i : sum) {
-      System.out.print("Combined= "+String.valueOf(i) +" ");
+      System.out.println(String.valueOf(i));
     }
   }
 

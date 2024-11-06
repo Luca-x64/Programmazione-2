@@ -49,8 +49,8 @@ public class SumClient {
     for (int i = 0; i < arr.length; i++) {
         arr[i] = nums.get(i);
     }
-    System.out.printf("Sum: %d",sum(arr));
-    System.out.printf("Sum: %d",sumE(arr));
+    System.out.println(sum(arr));
+    // System.out.println(sumE(arr));
       
     }
     // is more convenient the first implementation, as if the array is empty

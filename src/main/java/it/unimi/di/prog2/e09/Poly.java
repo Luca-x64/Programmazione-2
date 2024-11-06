@@ -21,6 +21,8 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e09;
 
+import java.util.Objects;
+
 import it.unimi.di.prog2.h08.impl.NegativeExponentException;
 
 /**
@@ -61,6 +63,7 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
     terms = new int[deg + 1];
     terms[deg] = c;
   }
+
 
   /**
    * Initializes a polynomial of given degree (with all coefficients equal to 0).
@@ -117,7 +120,31 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public Poly add(Poly q) throws NullPointerException {
-    return null; // add missing implementation
+    Objects.requireNonNull(q,"The polynomial must be not null");
+
+    final boolean select = q.degree()>degree();
+    final Poly larger = select ? q : this;
+    final Poly smaller = ! select? q : this;
+
+    int lgDeg = larger.degree();
+    final int smDeg = smaller.degree();
+
+    if (lgDeg == smDeg){
+      for(int i = degree(); i>0; i--) {
+        if ( larger.terms[i] - smaller.terms[i] == 0) lgDeg--;
+        else break;
+      }
+  }
+    
+    final Poly result = new Poly(lgDeg);
+    int i;
+    for (i = 0;i<=smDeg && i <= result.degree();i++){
+      result.terms[i] = larger.terms[i]+smaller.terms[i];
+    }
+    for (int j = i;j<=result.degree();j++){
+      result.terms[j] = larger.terms[j];
+    }
+    return result;
   }
 
   /**
@@ -164,4 +191,6 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
     for (int i = 0; i <= deg; i++) r.terms[i] = -terms[i];
     return r;
   }
+
+
 }

@@ -21,7 +21,6 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e06;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /** Esercizio 4.2 di PDJ. */
@@ -45,8 +44,8 @@ public class SearchClient {
     }
     int num = sc.nextInt();
     sc.close();
-    System.out.printf("Index: %d\n", searchLoop(nums, num));
-    System.out.printf("Index: %d\n", searchWhile(nums, num));
+    // System.out.println(searchLoop(nums, num));
+    System.out.println(searchWhile(nums, num));
 
     /* the first implementation is better (with for loops) because
     even if it do some controls over i < nums.lenght, its hovewer more efficent 
