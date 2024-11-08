@@ -10,10 +10,10 @@ II](https://prog2.di.unimi.it/) del corso di laurea in
 di Milano](http://www.unimi.it/).
 
 ## TODO-LIST
-- e06.SearchClient Fix (look tests/args.txt tests/input.txt)
 - e09.Poly.sum() add javadoc and ERM
-- e09.PolySparse complete class
+- e09.PolySparse Fix and add javadoc and ERM
 - e10.*
+- e11.*
 
 ### Come compilare ed eseguire i test e il codice
 

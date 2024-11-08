@@ -21,8 +21,13 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e09;
 
-import it.unimi.di.prog2.h08.impl.NegativeExponentException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+
+import it.unimi.di.prog2.h08.impl.NegativeExponentException;
 
 /**
  * {@code SparsePoly}s are immutable polynomials with integer coefficients such that the number of
@@ -55,7 +60,7 @@ public class SparsePoly {
 
   /** Initializes this to be the zero polynomial, that is \( p = 0 \). */
   public SparsePoly() {
-    terms = null; // replace this with the actual implementation
+    terms = Collections.emptyList();
   }
 
   /**
@@ -66,7 +71,12 @@ public class SparsePoly {
    * @throws NegativeExponentException if {@code n} &lt; 0.
    */
   public SparsePoly(int c, int n) throws NegativeExponentException {
-    terms = null; // replace this with the actual implementation
+    if (n<0) throw new NegativeExponentException("Degree must be greater or equal 0");
+    terms = c==0?Collections.emptyList():List.of(new Term(c,n));
+  }
+
+  private SparsePoly(final List<Term> list){
+    terms=Collections.unmodifiableList(list);
   }
 
   /**
@@ -76,7 +86,13 @@ public class SparsePoly {
    * @return the coefficient of the considered term.
    */
   public int coeff(int d) {
-    return 0; // replace this with the actual implementation
+    if (d < 0 || d > degree()) return 0;
+    for (Term term : terms ){
+      if (term.coeff == d) {
+        return term.coeff;
+      }
+    }
+    return 0;  
   }
 
   /**
@@ -86,7 +102,7 @@ public class SparsePoly {
    *     Poly}.
    */
   public int degree() {
-    return 0; // replace this with the actual implementation
+    return terms.isEmpty()?0: terms.get(terms.size()-1).degree; // replace this with the actual implementation //
   }
 
   /**
@@ -99,7 +115,28 @@ public class SparsePoly {
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public SparsePoly add(SparsePoly q) throws NullPointerException {
-    return null; // replace this with the actual implementation
+    Objects.requireNonNull(q,"Polynomial is null");
+
+    final List<Term> list = new LinkedList<>(terms);
+
+    for (Term elem:q.terms){
+      int tempCoeff = coeff(elem.degree);
+      if ( tempCoeff != 0 ){ //aggiorna elemento lista con somma dei coeff dei due polinomi
+        final int indexElemento = list.indexOf(new Term(tempCoeff,elem.degree)); //brutta questa new term TODO
+        final Term elementoList = list.get(indexElemento);
+        final Term newTerm = new Term(elementoList.coeff+tempCoeff,elem.degree);
+        list.set(indexElemento,newTerm);
+      }else{
+        if (elem.degree > degree()) list.add(elem);
+        else{
+          int i;
+          for (i =0;list.get(i).degree<elem.degree;i++)  list.set(i,elem);
+        }
+      }
+    }
+
+
+    return new SparsePoly(list);
   }
 
   /**
@@ -112,7 +149,14 @@ public class SparsePoly {
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public SparsePoly mul(SparsePoly q) throws NullPointerException {
-    return null; // replace this with the actual implementation
+    Objects.requireNonNull(q,"Polynomial cant be null");
+    List<Term> list = new ArrayList<>();
+    for(Term termP:terms){
+      for (Term termQ:q.terms){
+      list.add(new Term(termP.coeff*termQ.coeff,termP.degree*termQ.degree));
+      }
+    }
+    return new SparsePoly(list);
   }
 
   /**
@@ -125,7 +169,8 @@ public class SparsePoly {
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public SparsePoly sub(SparsePoly q) throws NullPointerException {
-    return null; // replace this with the actual implementation
+    Objects.requireNonNull(q);
+    return q.add(minus());
   }
 
   /**
@@ -136,6 +181,8 @@ public class SparsePoly {
    * @return this polynomial multiplied by \( -1 \).
    */
   public SparsePoly minus() {
-    return null; // replace this with the actual implementation
+    List<Term> list = new ArrayList<>();
+    for (Term elem:terms) list.add(new Term(- elem.coeff,elem.degree));
+    return new SparsePoly(list);
   }
 }

@@ -21,6 +21,8 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e09;
 
+import java.util.Scanner;
+
 /** A class to test some methods of {@link SparsePoly}. */
 public class SparsePolyClient {
 
@@ -39,17 +41,16 @@ public class SparsePolyClient {
    */
 
   /*- Uncomment the main method once you have implemented the SparsePoly class
-
+*/
   public static void main(String[] args) {
     SparsePoly result = new SparsePoly(1, 1).add(new SparsePoly(-1, 0));
     try (Scanner s = new Scanner(System.in)) {
       while (s.hasNextInt()) {
         SparsePoly term = new SparsePoly(s.nextInt(), s.nextInt());
-        result = result.mul(term).add(term);
+        // result = result.mul(term).add(term); //prof line
+        result = result.add(term); //test line
       }
       for (int d = 0; d <= result.degree(); d++) System.out.println(result.coeff(d) + " " + d);
     }
-  }
-
-  */
+  } 
 }
