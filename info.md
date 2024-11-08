@@ -13,7 +13,6 @@ di Milano](http://www.unimi.it/).
 - e09.Poly.sum() add javadoc and ERM
 - e09.PolySparse Fix and add javadoc and ERM
 - e10.*
-- e11.*
 
 ### Come compilare ed eseguire i test e il codice
 
