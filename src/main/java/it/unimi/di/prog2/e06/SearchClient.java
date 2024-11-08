@@ -42,10 +42,10 @@ public class SearchClient {
     for (int i = 0; i < line.length; i++) {
       nums[i] = Integer.parseInt(line[i]);
     }
-    int num = sc.nextInt();
-    sc.close();
-    // System.out.println(searchLoop(nums, num));
-    System.out.println(searchWhile(nums, num));
+    int num = Integer.parseInt(args[0]);
+
+    System.out.println(searchLoop(nums, num));
+    // System.out.println(searchWhile(nums, num));
 
     /* the first implementation is better (with for loops) because
     even if it do some controls over i < nums.lenght, its hovewer more efficent 
@@ -64,7 +64,7 @@ public class SearchClient {
     // REQUIRES: nums sorted 
     // EFFECTS: return the indexposizion of n in nums, -1 if not found
     for (int i = 0; i < nums.length; i++) {
-      if (nums[i] == n) {
+          if (nums[i] == n) {
         return i;
       }
     }
