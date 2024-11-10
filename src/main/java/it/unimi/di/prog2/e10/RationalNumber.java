@@ -21,9 +21,15 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e10;
 
+import java.util.Objects;
+
+import it.unimi.di.prog2.e05.GcdClient;
+
 /**
- * A rational number is an immutable number that can be expressed as the quotient or fraction \( p/q
- * \) of two {@code int}s, a numerator \( p \) and a non-zero denominator \( q \).
+ * A rational number is an immutable number that can be expressed as the
+ * quotient or fraction \( p/q
+ * \) of two {@code int}s, a numerator \( p \) and a non-zero denominator \( q
+ * \).
  */
 public class RationalNumber {
 
@@ -33,12 +39,30 @@ public class RationalNumber {
   // the specification.
 
   /**
+   * n numerator
+   * d denominator
+   */
+  private final int n, d;
+
+  /**
    * Creates a new rational number.
    *
-   * @param numerator the numerator.
+   * @param numerator   the numerator.
    * @param denominator the denominator.
+   * @throws IllegalAIllegalArgumentException if denominator is 0
    */
-  public RationalNumber(int numerator, int denominator) {}
+  public RationalNumber(int numerator, int denominator) {
+    if (denominator == 0)
+      throw new IllegalArgumentException("denominator cant be null");
+    else if (denominator < 0) {
+      numerator = -numerator;
+      denominator = -denominator;
+    }
+
+    int gcd = GcdClient.gcd(numerator > 0 ? numerator : -numerator, denominator > 0 ? denominator : -denominator);
+    n = numerator / gcd;
+    d = denominator / gcd;
+  }
 
   /**
    * Returns the sum of this rational number and another one.
@@ -47,7 +71,7 @@ public class RationalNumber {
    * @return the sum of this rational number and {@code other}.
    */
   public RationalNumber add(RationalNumber other) {
-    return null;
+    return new RationalNumber(d * other.n + n * other.d, other.d * d);
   }
 
   /**
@@ -57,6 +81,23 @@ public class RationalNumber {
    * @return the product of this rational number and {@code other}.
    */
   public RationalNumber mul(RationalNumber other) {
-    return null;
+    return new RationalNumber(n * other.n, d * other.d);
+  }
+
+  @Override
+  public String toString() {
+    return d + "/" + n;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null || !(obj instanceof RationalNumber frac)) return false;
+    return n == frac.n && d == frac.d;
+  }
+
+
+  @Override
+  public int hashCode() {
+    return  Objects.hash(n,d);
   }
 }
