@@ -21,6 +21,8 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e10;
 
+import java.util.Scanner;
+
 /** A class to exercise a {@link RationalNumber}. */
 public class RationalNumberClient {
 
@@ -41,7 +43,7 @@ public class RationalNumberClient {
    */
 
   /* - Uncomment the following after completing the implementation of RationalNumber
-
+*/
   public static void main(String[] args) {
     RationalNumber expected =
         new RationalNumber(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
@@ -55,5 +57,5 @@ public class RationalNumberClient {
     System.out.println(result.equals(expected));
   }
 
-  */
+  
 }

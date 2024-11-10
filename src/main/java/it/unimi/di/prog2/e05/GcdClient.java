@@ -58,7 +58,7 @@ public class GcdClient {
    * @param n2 second number
    * @return gcd of the 2 numbers
    */
-  private static int gcd(int n1, int n2) {
+  public static int gcd(int n1, int n2) {
     // MODIFIES: n1 , n2
     // EFFECTS: return gcd of 2 numbers
     while (n2 != 0) {

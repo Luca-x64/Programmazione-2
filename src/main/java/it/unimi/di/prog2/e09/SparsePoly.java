@@ -105,6 +105,30 @@ public class SparsePoly {
     return terms.isEmpty()?0: terms.get(terms.size()-1).degree; // replace this with the actual implementation //
   }
 
+
+  public static int findIndexByDegree(List<Term> list,int deg) {
+    int index = -1;
+    for (int i = 0; i < list.size(); i++) {
+      if (list.get(i).degree == deg) return i;
+    }
+    return index;
+  }
+
+  private static void addTerm(List<Term> list,Term term){
+    if (term.degree == 0) return;
+    else{
+      int index = findIndexByDegree(list, term.degree);
+      if (index == list.size()-1){ //aggiungi in coda
+        list.add(term); 
+      }else{                            // modifica esistente
+        int tempCoeff = list.get(index).coeff;
+        Term newTerm = new Term(tempCoeff+term.coeff,term.degree);
+        list.remove(index);
+        list.set(index,newTerm);
+      }
+    }
+  }
+
   /**
    * Performs polynomial addition.
    *
@@ -119,23 +143,8 @@ public class SparsePoly {
 
     final List<Term> list = new LinkedList<>(terms);
 
-    for (Term elem:q.terms){
-      int tempCoeff = coeff(elem.degree);
-      if ( tempCoeff != 0 ){ //aggiorna elemento lista con somma dei coeff dei due polinomi
-        final int indexElemento = list.indexOf(new Term(tempCoeff,elem.degree)); //brutta questa new term TODO
-        final Term elementoList = list.get(indexElemento);
-        final Term newTerm = new Term(elementoList.coeff+tempCoeff,elem.degree);
-        list.set(indexElemento,newTerm);
-      }else{
-        if (elem.degree > degree()) list.add(elem);
-        else{
-          int i;
-          for (i =0;list.get(i).degree<elem.degree;i++)  list.set(i,elem);
-        }
-      }
-    }
-
-
+    for (Term elem:q.terms)  addTerm(list, elem);
+    
     return new SparsePoly(list);
   }
 
@@ -153,7 +162,7 @@ public class SparsePoly {
     List<Term> list = new ArrayList<>();
     for(Term termP:terms){
       for (Term termQ:q.terms){
-      list.add(new Term(termP.coeff*termQ.coeff,termP.degree*termQ.degree));
+      addTerm(list, new Term(termP.coeff*termQ.coeff,termP.degree*termQ.degree));
       }
     }
     return new SparsePoly(list);

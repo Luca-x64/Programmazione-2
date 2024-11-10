@@ -47,8 +47,7 @@ public class SparsePolyClient {
     try (Scanner s = new Scanner(System.in)) {
       while (s.hasNextInt()) {
         SparsePoly term = new SparsePoly(s.nextInt(), s.nextInt());
-        // result = result.mul(term).add(term); //prof line
-        result = result.add(term); //test line
+        result = result.mul(term).add(term); //prof line
       }
       for (int d = 0; d <= result.degree(); d++) System.out.println(result.coeff(d) + " " + d);
     }

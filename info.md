@@ -10,9 +10,9 @@ II](https://prog2.di.unimi.it/) del corso di laurea in
 di Milano](http://www.unimi.it/).
 
 ## TODO-LIST
-- e09.Poly.sum() add javadoc and ERM
-- e09.PolySparse Fix and add javadoc and ERM
-- e10.*
+- e09.Poly.sum() javadoc and ERM
+- e09.PolySparse Fix, javadoc and ERM
+- e10.* javadoc and ERM
 
 ### Come compilare ed eseguire i test e il codice
 
