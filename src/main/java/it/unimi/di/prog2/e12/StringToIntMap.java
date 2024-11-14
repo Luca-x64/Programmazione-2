@@ -21,7 +21,12 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e12;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
+
+
 
 /**
  * A map from {@link String} to {@link Integer}.
@@ -32,11 +37,37 @@ import java.util.NoSuchElementException;
  */
 public class StringToIntMap {
 
+
+  final private List<String> keys;
+  final private List<Integer> values;
+
+
+  /*
+   * AF: 
+   *  AF(key,value) = a map where keys.get(i) is associated to values.get(i) for each i in [0,keys.size()]
+   * 
+   * RI:
+   *  keys != null and not contains null
+   *  value != null and not contains null
+   *  keys.size() == values.size()
+   *  key not duplicated
+   *  
+   * 
+   * 
+   * 
+   * 
+   * 
+   */
+
+
   // EXERCISE: provide a representation, together with its AF and RI
   // Note: do not use the Map in Java Collections, the point is to implement it from scratch!
 
   /** Creates a new empty map. */
-  public StringToIntMap() {}
+  public StringToIntMap() {
+    keys = new ArrayList<String>();
+    values = new ArrayList<Integer>();
+  }
 
   /**
    * Returns the size of this map.
@@ -44,7 +75,7 @@ public class StringToIntMap {
    * @return the number of key-value mappings in this map.
    */
   public int size() {
-    return 0;
+    return keys.size();
   }
 
   /**
@@ -53,7 +84,7 @@ public class StringToIntMap {
    * @return {@code true} iff this map contains no key-value mappings.
    */
   public boolean isEmpty() {
-    return false;
+    return keys.isEmpty();
   }
 
   /**
@@ -63,7 +94,7 @@ public class StringToIntMap {
    * @return {@code true} iff this map contains a key-value mappings with the given {@code key}.
    */
   public boolean containsKey(String key) {
-    return false;
+    return keys.contains(key);
   }
 
   /**
@@ -73,7 +104,7 @@ public class StringToIntMap {
    * @return {@code true} iff this map contains a key-value mappings with the given {@code value}.
    */
   public boolean containsValue(int value) {
-    return false;
+    return values.contains(value);
   }
 
   /**
@@ -84,7 +115,7 @@ public class StringToIntMap {
    * @throws NoSuchElementException if this map contains no mapping for the key.
    */
   public int get(String key) throws NoSuchElementException {
-    return 0;
+    return values.get(keys.indexOf(key));
   }
 
   /**
@@ -96,7 +127,12 @@ public class StringToIntMap {
    *     modified by this operation.
    */
   public boolean put(String key, int value) {
-    return false;
+    boolean result = true;
+    if (containsKey(key)) result = false;
+    remove(key);
+    keys.add(key);
+    values.add(value);
+    return result;
   }
 
   /**
@@ -107,9 +143,15 @@ public class StringToIntMap {
    *     modified by this operation.
    */
   public boolean remove(String key) {
-    return false;
+    if (! containsKey(key)) return false;
+    values.remove(values.get(keys.indexOf(key)));
+    keys.remove(key);
+    return true;
   }
 
   /** Removes all of the mappings from this map. */
-  public void clear() {}
+  public void clear() {
+    keys.clear();
+    values.clear();
+  }
 }
