@@ -19,54 +19,44 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e15;
+package it.unimi.di.prog2.s15;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
+import java.util.NoSuchElementException;
 
 /** Utility class with some string iterators. */
 public class StringIterators {
 
   /** . */
-  private StringIterators() {
-  }
+  private StringIterators() {}
+
   /**
-   * Filters even-positioned strings.
+   * Filters even-length strings.
    *
    * @param it an iterator of strings.
-   * @return an iterator that returns the even-positioned strings of {@code it}.
+   * @return an iterator that returns the strings of even length of {@code it}.
    */
   public static Iterator<String> evenIterator(final Iterator<String> it) {
-    
-    return new Iterator<String>() {
+    return new Iterator<>() {
+      private String next = null;
+
       @Override
       public boolean hasNext() {
-
-        List<String> copiedElements = new ArrayList<>();
-        it.forEachRemaining(copiedElements::add); // Copia tutti gli elementi
-
-        final Iterator<String> copy = copiedElements.iterator();
-        boolean cond = false;
-        while(copy.hasNext() && !cond ){
-          if (copy.next().strip().length() % 2 == 0) { cond=true; }
+        if (next != null) return true;
+        while (it.hasNext()) {
+          next = it.next();
+          if (next.length() % 2 == 0) return true;
         }
-        
-        return cond;
+        return false;
       }
 
       @Override
       public String next() {
-        boolean cond = false;
-        String word = "";
-        while(it.hasNext() && !cond) {
-          word = it.next().strip();
-          if (word.length() % 2 == 0) { cond=true; }
-        }
-        return word;
+        if (!hasNext()) throw new NoSuchElementException();
+        String result = next;
+        next = null;
+        return result;
       }
-
     };
   }
 
@@ -78,9 +68,6 @@ public class StringIterators {
    */
   public static Iterator<String> uppercase(final Iterator<String> it) {
     return new Iterator<>() {
-
-      // EXERCISE: complete the implementation
-
       @Override
       public boolean hasNext() {
         return it.hasNext();
