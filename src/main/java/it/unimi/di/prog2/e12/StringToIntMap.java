@@ -22,7 +22,6 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 package it.unimi.di.prog2.e12;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -65,8 +64,8 @@ public class StringToIntMap {
 
   /** Creates a new empty map. */
   public StringToIntMap() {
-    keys = new ArrayList<String>();
-    values = new ArrayList<Integer>();
+    keys = new ArrayList<>();
+    values = new ArrayList<>();
   }
 
   /**
@@ -112,19 +111,20 @@ public class StringToIntMap {
    *
    * @param key the key whose associated value is to be returned.
    * @return the value to which the specified key is mapped.
-   * @throws NoSuchElementException if this map contains no mapping for the key.
+   * @throws NoSuchElementException if this map contains no mapping for the key, or the key is
+   *     {@code null}.
    */
   public int get(String key) throws NoSuchElementException {
     return values.get(keys.indexOf(key));
   }
 
   /**
-   * Associates the specified value with the specified key in this map.
+   * Associates in this map the new key with the specified value.
    *
    * @param key the key with which the specified value is to be associated.
    * @param value the value to be associated with the specified key.
-   * @return {@code true} iff this map did not already contain a mapping for the key, and hence is
-   *     modified by this operation.
+   * @throws IllegalArgumentException if the map already contain a mapping for the key.
+   * @throws NullPointerException if the key is {@code null}.
    */
   public boolean put(String key, int value) {
     boolean result = true;
