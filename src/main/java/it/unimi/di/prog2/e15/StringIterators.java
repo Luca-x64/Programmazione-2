@@ -41,6 +41,9 @@ public class StringIterators {
   public static Iterator<String> evenIterator(final Iterator<String> it) {
     
     return new Iterator<String>() {
+
+      private String next= null;
+
       @Override
       public boolean hasNext() {
 
@@ -50,7 +53,8 @@ public class StringIterators {
         final Iterator<String> copy = copiedElements.iterator();
         boolean cond = false;
         while(copy.hasNext() && !cond ){
-          if (copy.next().strip().length() % 2 == 0) { cond=true; }
+          next = copy.next().strip();
+          if (next.length() % 2 == 0) { cond=true; }
         }
         
         return cond;
@@ -58,13 +62,10 @@ public class StringIterators {
 
       @Override
       public String next() {
-        boolean cond = false;
-        String word = "";
-        while(it.hasNext() && !cond) {
-          word = it.next().strip();
-          if (word.length() % 2 == 0) { cond=true; }
-        }
-        return word;
+        if (next == null){ throw new NullPointerException("next is null");}
+        String result = next;
+        next = null;
+        return result;
       }
 
     };
