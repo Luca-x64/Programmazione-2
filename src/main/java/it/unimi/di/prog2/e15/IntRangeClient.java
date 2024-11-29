@@ -21,6 +21,9 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e15;
 
+import java.util.Iterator;
+import java.util.Scanner;
+
 /** A class to test int ranges. */
 public class IntRangeClient {
 
@@ -45,7 +48,7 @@ public class IntRangeClient {
    *
    * <ul>
    *   <li>the number of integers in the range,
-   *   <li>the first integer in the range (if any),
+   *   <li>the first integer in the range (if any),e
    *   <li>the last integer in the range (if different from the first).
    * </ul>
    *
@@ -53,33 +56,43 @@ public class IntRangeClient {
    */
 
   /*- Uncomment and complete once you have implemented the range class
-
+*/
     public static void main(String[] args) {
-      // declare the range...
+      IntRange range = new IntRange();
       try (Scanner sc = new Scanner(System.in)) {
         while (sc.hasNext()) {
           char command = sc.next().charAt(0);
           int value = sc.nextInt();
+        
           switch (command) {
-            case 'F':
-              // set the from the range
-              break;
-            case 'T':
-              // set the to the range
-              break;
-            case 'S':
-              // set the step the range
-              break;
-            default:
-              throw new IllegalArgumentException("Unknown command: " + command);
+            case 'F' -> {
+              range.setFrom(value);
+                }
+            case 'T' -> {
+              range.setTo(value);
+                }
+            case 'S' -> {
+              range.setStep(value);
+                }
+            default -> throw new IllegalArgumentException("Unknown command: " + command);
           }
+                    }
+      }
+      Iterator it = range.iterator();
+      int iterations = 0, first = 0, last = 0;
+      
+      if(it.hasNext()){
+        first = (int) it.next();
+        iterations++;
+        
+        while(it.hasNext()){
+          last = (int) it.next();
+          iterations++;
         }
       }
-      int iterations = 0, first = 0, last = 0;
-      // complete...
-      System.out.println(
-          iterations + (iterations > 0 ? " " + first : "") + (iterations > 1 ? " " + last : ""));
+
+      System.out.println(iterations + (iterations > 0 ? " " + first : "") + (iterations > 1 ? " " + last : ""));
     }
 
-  */
+  
 }
