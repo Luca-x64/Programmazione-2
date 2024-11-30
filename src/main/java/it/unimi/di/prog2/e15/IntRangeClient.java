@@ -55,8 +55,6 @@ public class IntRangeClient {
    * @param args not used.
    */
 
-  /*- Uncomment and complete once you have implemented the range class
-*/
     public static void main(String[] args) {
       IntRange range = new IntRange();
       try (Scanner sc = new Scanner(System.in)) {
@@ -78,7 +76,7 @@ public class IntRangeClient {
           }
                     }
       }
-      Iterator it = range.iterator();
+      Iterator<Integer> it = range.iterator();
       int iterations = 0, first = 0, last = 0;
       
       if(it.hasNext()){

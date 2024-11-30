@@ -7,6 +7,7 @@ public class IntRange implements Iterable<Integer> {
     private int from = Integer.MIN_VALUE;
     private int to = Integer.MAX_VALUE;
     private int step = 1;
+
     public IntRange() {}
     
 
@@ -18,6 +19,7 @@ public class IntRange implements Iterable<Integer> {
     }
 
     void setStep(int value) {
+        if (value == 0) throw new IllegalArgumentException();
         step=value;
     }
 
@@ -26,9 +28,12 @@ public class IntRange implements Iterable<Integer> {
     public Iterator<Integer> iterator(){
 
     if (step > 0 && from > to || step < 0 && from < to) throw new IllegalArgumentException();
-        int next = this.from;
 
         return new Iterator<Integer>(){
+            private int next = from;
+            private final int step = IntRange.this.step;
+            private final int to = IntRange.this.to;
+
             @Override
             public boolean hasNext() {
                 return step > 0 ? next < to : next > to;
@@ -40,9 +45,12 @@ public class IntRange implements Iterable<Integer> {
                     throw new NoSuchElementException();
                 }
                 int result = next;
-                next += this.step;
+                if (step >0 && next >= Integer.MAX_VALUE-step) next = Integer.MAX_VALUE;
+                else if (step <0 && next <= Integer.MIN_VALUE-step) next = Integer.MIN_VALUE;
+                else next += step;
                 return result;
             }
         };
     }
+    
 }
