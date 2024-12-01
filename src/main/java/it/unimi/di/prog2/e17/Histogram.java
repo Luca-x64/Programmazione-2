@@ -21,8 +21,11 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e17;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * A class to handle a list of rectangles and organize them as in histogram.
@@ -31,6 +34,9 @@ import java.util.NoSuchElementException;
  * returns the rectangles in this order.
  */
 public class Histogram implements Iterable<Rectangle> {
+
+
+  private final ArrayList<Rectangle> histograms; 
 
   /*-
     Decide what fields to use to represent a rectangle and
@@ -42,14 +48,21 @@ public class Histogram implements Iterable<Rectangle> {
   */
 
   /** Creates an empty histogram. */
-  public Histogram() {}
+  public Histogram() {
+    histograms = new ArrayList<>();
+  }
 
   /**
    * Adds a {@link Rectangle} to this histogram.
    *
    * @param rectangle the rectangle to add.
    */
-  public void add(Rectangle rectangle) {}
+  public void add(Rectangle rectangle) {
+    int i;
+    for (i = 0; i < histograms.size() && histograms.get(i).height() < rectangle.height() ; i++) {
+    }
+    histograms.add(i,rectangle);
+  }
 
   /**
    * Changes the base of the given rectangle
@@ -58,7 +71,10 @@ public class Histogram implements Iterable<Rectangle> {
    * @param newBase the new base.
    * @throws NoSuchElementException if the rectangle is not in the histogram.
    */
-  public void changeBase(Rectangle rectangle, int newBase) {}
+  public void changeBase(Rectangle rectangle, int newBase) {
+    Objects.requireNonNull(rectangle);
+    histograms.get(histograms.indexOf(rectangle)).base(newBase);
+  }
 
   /**
    * Returns an iterator that produces the rectangles in this histogram in decreasing height order.
@@ -67,6 +83,6 @@ public class Histogram implements Iterable<Rectangle> {
    */
   @Override
   public Iterator<Rectangle> iterator() {
-    return null;
+    return Collections.unmodifiableCollection(histograms).iterator();
   }
 }

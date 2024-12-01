@@ -34,6 +34,12 @@ public class Square extends Rectangle {
   */
 
   /**
+   * AF(base) = a square base*base
+   * RI: base >= 0
+   */
+
+  /**
+   * 
    * Creates a rectangle of given base and height.
    *
    * @param base the base of the rectangle.
@@ -41,4 +47,17 @@ public class Square extends Rectangle {
   public Square(final int base) {
     super(base, base);
   }
+
+  @Override
+  public void base(int base){
+    if (base <=0) throw new IllegalArgumentException();
+    super.base(base);
+    super.height(base);
+  }
+
+  @Override
+  public void height(int heigth){
+    this.base(heigth);
+  }
+
 }
