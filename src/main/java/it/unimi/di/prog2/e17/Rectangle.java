@@ -24,6 +24,8 @@ package it.unimi.di.prog2.e17;
 /** A mutable class representing a rectangle with integer valued base and height. */
 public class Rectangle {
 
+  private int base,height;
+
   /*-
     Decide what fields to use to represent the rectangle and
     provide the AF and IR.
@@ -33,13 +35,25 @@ public class Rectangle {
     Finish the implementation of the class.
   */
 
+
+  /*
+   * AF(base,heigth) a rectangle with base base and heigth heigth
+   * IR: base >0 && height >0
+   * 
+   * 
+   */
+
   /**
    * Creates a rectangle of given base and height.
    *
    * @param base the base of the rectangle.
    * @param height height of the rectangle.
    */
-  public Rectangle(int base, int height) {}
+  public Rectangle(int base, int height) {
+    if(base <= 0 || height <=0) throw new IllegalArgumentException();
+    this.base=base;
+    this.height=height;
+  }
 
   /**
    * Returns the base of the rectangle.
@@ -47,7 +61,7 @@ public class Rectangle {
    * @return the base of the rectangle.
    */
   public int base() {
-    return 0;
+    return base;
   }
 
   /**
@@ -55,7 +69,10 @@ public class Rectangle {
    *
    * @param base the new base of the rectangle.
    */
-  public void base(int base) {}
+  public void base(int base) {
+    if (base <= 0) throw new IllegalArgumentException();
+    this.base=base;
+  }
 
   /**
    * Returns the height of the rectangle.
@@ -63,7 +80,7 @@ public class Rectangle {
    * @return the height of the rectangle.
    */
   public int height() {
-    return 0;
+    return height;
   }
 
   /**
@@ -71,10 +88,13 @@ public class Rectangle {
    *
    * @param height the new height of the rectangle.
    */
-  public void height(int height) {}
+  public void height(int height) {
+    if (height <= 0) throw new IllegalArgumentException();
+    this.height=height;
+  }
 
   @Override
   public String toString() {
-    return null;
+    return "Base: " + base+ " Heigth: " + height;
   }
 }
