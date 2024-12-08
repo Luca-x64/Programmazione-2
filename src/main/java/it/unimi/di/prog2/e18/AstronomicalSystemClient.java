@@ -21,6 +21,8 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e18;
 
+import java.util.Scanner;
+
 /**
  * Allows verification of the behavior of an astronomical system.
  *
@@ -42,9 +44,16 @@ public class AstronomicalSystemClient {
    */
 
   /* - uncomment and provide the implementation
-
+*/
   public static void main(String[] args) {
+  int n = Integer.parseInt(args[0]);
+  AstronomicalSystem system = new AstronomicalSystem();
+  Scanner sc = new Scanner(System.in);
+  int step = sc.nextInt();
+  
+  
+  
   }
 
-  */
+  
 }
