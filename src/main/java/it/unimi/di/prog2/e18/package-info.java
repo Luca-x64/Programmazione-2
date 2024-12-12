@@ -20,20 +20,29 @@
  * function</em>) and the methods (with particular reference to
  * <em>pre-</em>/<em>post-conditions</em> and <em>side effects</em>).
  *
+ * CELESTIAL BODY {name String, Position 3D-Point{x int,y int,z int}}
+ * 
  * <p>A <strong>celestial body</strong> is characterized by a <em>name</em> and a <em>position</em>,
- * described by a <strong>three-dimensional point</strong> with integer coordinates; the
- * <em>norm</em> of a three-dimensional point is the sum of the absolute values of its components
+ * 
+ * described by a <strong>three-dimensional point</strong> with integer coordinates; 
+ * the <em>norm</em> of a three-dimensional point is the sum of the absolute values of its components
  * (also known as the <span class="math inline">ℓ<sub>1</sub></span> norm). We will assume for
  * simplicity that there are only two types of celestial bodies: <strong>stars</strong> and
- * <strong>planets</strong>. Stars never change their position, unlike planets. Therefore, in
+ * <strong>planets</strong>.
+ * 
+ *  Stars never change their position, unlike planets. Therefore, in
  * addition to position, planets are characterized by their <em>velocity</em>, also described by a
- * three-dimensional point. Each celestial body has an <em>energy</em> given by the product of the
+ * three-dimensional point. 
+ * 
+ * Each celestial body has an <em>energy</em> given by the product of the
  * <em>potential energy</em>, corresponding to the norm of its position, and the <em>kinetic
  * energy</em>, corresponding to the norm of its velocity (obviously this energy is zero in the case
  * of fixed stars).
  *
  * <p>Celestial bodies are subject to mutual <em>gravitational attraction</em> which modifies their
  * velocity and, indirectly, their position as follows:
+ * 
+ * 
  *
  * <ul>
  *   <li>

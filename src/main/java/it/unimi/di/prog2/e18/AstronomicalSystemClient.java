@@ -30,9 +30,6 @@ import java.util.Scanner;
  */
 public class AstronomicalSystemClient {
 
-  /** . */
-  private AstronomicalSystemClient() {}
-
   /**
    * Simulates an astronomical system.
    *
@@ -46,13 +43,36 @@ public class AstronomicalSystemClient {
   /* - uncomment and provide the implementation
 */
   public static void main(String[] args) {
-  int n = Integer.parseInt(args[0]);
-  AstronomicalSystem system = new AstronomicalSystem();
+  AstronomicalSystem as = new AstronomicalSystem();
+  int steps = Integer.parseInt(args[0]);
+  if (steps < 0) throw new IllegalArgumentException("steps cant be less than 0");
   Scanner sc = new Scanner(System.in);
-  int step = sc.nextInt();
-  
-  
-  
+
+  while (sc.hasNext()) {
+    char tipy = sc.next().charAt(0); // can be P or S
+    String name = sc.next();
+    int x = sc.nextInt();
+    int y = sc.nextInt();
+    int z = sc.nextInt();
+    CelestialBody cb = null;
+    switch(tipy){
+      case 'P'->{
+        cb = new Planet(name,x,y,z);
+      }
+      case 'S' ->{
+        cb = new Star(name,x,y,z);
+      }
+    }
+    as.insert(cb);
+      
+  }
+  sc.close();
+
+  for (int i = 0; i < steps; i++) {
+      as.updatePosition();
+  }
+
+  System.err.println(as);
   }
 
   

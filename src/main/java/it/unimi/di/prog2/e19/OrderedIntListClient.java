@@ -21,6 +21,8 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 package it.unimi.di.prog2.e19;
 
+import java.util.Scanner;
+
 /** A class to test ordered lists. */
 public class OrderedIntListClient {
 
@@ -34,7 +36,7 @@ public class OrderedIntListClient {
    * @param args not used.
    */
 
-  /*- uncomment once you have done developing the OrdereIntList
+  /*- uncomment once you have done developing the OrdereIntList */
    public static void main(String[] args) {
     OrderedIntList list = new OrderedIntList();
     try (Scanner s = new Scanner(System.in)) {
@@ -43,5 +45,5 @@ public class OrderedIntListClient {
     System.out.println(join(list.smallToBig(), ", "));
     System.out.println(join(list.bigToSmall(), ", "));
   }
-  */
+  
 }
