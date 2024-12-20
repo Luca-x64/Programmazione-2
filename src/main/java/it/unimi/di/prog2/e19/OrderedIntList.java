@@ -20,13 +20,12 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 package it.unimi.di.prog2.e19;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.StringJoiner;
 
-import javax.crypto.NullCipher;
-
+import static it.unimi.di.prog2.e19.IteratorUtils.EmptyIterator;
+import static it.unimi.di.prog2.e19.IteratorUtils.concatenate;
 import it.unimi.di.prog2.h08.impl.EmptyException;
 
 /**
@@ -36,9 +35,10 @@ import it.unimi.di.prog2.h08.impl.EmptyException;
  * duplicates described // in paragraph 6 of chapter 6 of the PDJ textbook.
  *
  * <p>}
- */
-
-
+ 
+  * Mutable
+  list of ordered int
+  */
 public class OrderedIntList{
     private boolean empty;
     private OrderedIntList left,right;
@@ -50,102 +50,110 @@ public class OrderedIntList{
         left=right=null;
     }
 
-    void addEl(int el) /* throws DuplicateException */ {
+    void addEl(int el) throws IllegalArgumentException {
+        if(el==val) throw new IllegalArgumentException("Duplicate");
+        if (isEmpty()) {
+            val = el;
+            empty=false;
+            right = new OrderedIntList();
+            left = new OrderedIntList();
+        }else if (el<val) left.addEl(el);
+        else right.addEl(el);
         
     }
 
-    void remEl(int el){
-   
-     
+    // boolean remEl(int el) throws NullPointerException {
+    //     if (isEmpty()) throw new NullPointerException(); 
+    //     if(el == val){
+    //         if(right.isEmpty() && left.isEmpty()) empty=false;
+    //         try {
+    //             int least = right.least();
+    //             right.remEl(least);
+    //         } catch (EmptyException e) {
+    //             empty = left.empty;
+    //             val=left.val;
+    //             right = left.right;
+    //             left=left.left;
+    //             return true;
+    //         }
+    //     }
+    //     return el < val ? left.remEl(val) : right.remEl(val);
+    // }
+
+
+    boolean isEmpty(){
+        return empty;
     }
+
+    // /**
+    //  * TODO
+    //  * @param el
+    //  * @return
+    //  */
+    // boolean isIn(int el){
+    //     if (empty) return false;
+    //     if (el == val) return true;
+    //     if (el<val) return left.isIn(el);
+    //     else return right.isIn(el);
+    // }
+
+    // /**
+    //  * TODO
+    //  * @return
+    //  */
+    // int size(){
+    //     return empty?0:1+left.size()+right.size();
+    // }
 
     /**
      * TODO
-     * @param el
      * @return
      */
-    boolean isIn(int el){
-        if (empty) return false;
-        if (el == val) return true;
-        if (el<val) return left.isIn(el);
-        else return right.isIn(el);
-    }
-
-    /**
-     * TODO
-     * @return
-     */
-    int size(){
-        return empty?0:1+left.size()+right.size();
-    }
-
-    /**
-     * TODO
-     * @return
-     */
-    public int least()  {
+    public int least() throws EmptyException {
         if (empty) throw new EmptyException("least");
-        try { return left.least(); }
-        catch (EmptyException e){
+        try { return left.least();
+        }catch (EmptyException e){
             return val;
         }
         
     }
 
-    public Iterator smallToBig() {
-       return new Iterator<Integer>(){
-
-        @Override
-        public boolean hasNext() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
-        }
-
-        @Override
-        public Integer next() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'next'");
-        }
-
-       };
+    public Iterator<Integer> smallToBig() {
+        return isEmpty()? EmptyIterator(): concatenate( concatenate(left.smallToBig(), List.of(val).iterator()),right.smallToBig());  
     }
 
-    public Iterator bigToSmall() {
-        
-        return new Iterator<Integer>(){
-
-            @Override
-            public boolean hasNext() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
-            }
-    
-            @Override
-            public Integer next() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'next'");
-            }
-    
-           };
-     
+    public Iterator<Integer> bigToSmall() {
+        return isEmpty()? EmptyIterator(): concatenate(concatenate(right.bigToSmall(), List.of(val).iterator()), left.bigToSmall());  
     }
 
     @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OrderedIntList other)) return false;
+        if (isEmpty() != other.isEmpty()) return false;
+        if (isEmpty()) return true;
+
+        final Iterator<Integer> thisIt = smallToBig(),otherIt = other.smallToBig();
+        while (thisIt.hasNext() && otherIt.hasNext())
+        if (! thisIt.next().equals(otherIt.next())) return false;
+    return !(thisIt.hasNext() || otherIt.hasNext());
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-         // TODO Auto-generated method stub
-        return super.clone();
+    public String toString() { //TODO CHECK
+        StringJoiner sj = new StringJoiner(",");
+        sj.add(String.valueOf(val));
+        if (empty) return sj.toString();
+        sj.add(left.toString());
+        sj.add(right.toString());
+        return sj.toString();
     }
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
-        return super.hashCode();
+        int result = 0;
+    final Iterator<Integer> it = smallToBig();
+    while (it.hasNext()) result = 31 * result + it.next().hashCode();
+    return result;
     }
     
 

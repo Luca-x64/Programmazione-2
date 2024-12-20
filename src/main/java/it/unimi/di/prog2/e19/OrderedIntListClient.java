@@ -23,6 +23,8 @@ package it.unimi.di.prog2.e19;
 
 import java.util.Scanner;
 
+import static it.unimi.di.prog2.e19.IteratorUtils.join;
+
 /** A class to test ordered lists. */
 public class OrderedIntListClient {
 
